@@ -376,8 +376,8 @@ lookup_in_node(File,#node{members=Members},Key) ->
                                       end),
             try plain_rpc:call(PID, read)
             catch
-                Class:Ex ->
-                    error_logger:error_msg("crashX: ~p:~p ~p~n", [Class,Ex,erlang:get_stacktrace()]),
+                Class:Ex:Stacktrace ->
+                    error_logger:error_msg("crashX: ~p:~p ~p~n", [Class,Ex,Stacktrace]),
                     not_found
             end;
 

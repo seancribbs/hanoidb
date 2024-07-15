@@ -56,7 +56,7 @@
 -define(BISECT_ENCODED,  126).
 
 
--define(FILE_ENCODING, bisect).
+-define(FILE_ENCODING, hanoi2).
 
 -compile({inline, [crc_encapsulate/1, crc_encapsulate_kv_entry/2 ]}).
 
@@ -298,8 +298,8 @@ ensure_expiry(Opts) ->
         undefined ->
             try exit(err)
             catch
-                exit:err ->
-                    io:format(user, "~p~n", [erlang:get_stacktrace()])
+                exit:err:Stacktrace ->
+                    io:format(user, "~p~n", [Stacktrace])
             end,
             exit(expiry_secs_not_set);
         N when N >= 0 ->
@@ -345,4 +345,3 @@ bloom_contains({sbloom, Bloom}, Key) ->
     hanoidb_bloom:member(Key, Bloom);
 bloom_contains({ebloom, Bloom}, Key) ->
     ebloom:contains(Bloom, Key).
-

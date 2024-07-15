@@ -79,10 +79,10 @@ start(SendTo) ->
                     initialize(#state{sendto=SendTo, sendto_ref=MRef}, []),
                     ?log("fold_worker done ~p~n", [self()])
                 catch
-                    Class:Ex ->
-                        ?log("fold_worker exception  ~p:~p ~p~n", [Class, Ex, erlang:get_stacktrace()]),
-                        error_logger:error_msg("Unexpected: ~p:~p ~p~n", [Class, Ex, erlang:get_stacktrace()]),
-                        exit({bad, Class, Ex, erlang:get_stacktrace()})
+                    Class:Ex:Stacktrace ->
+                        ?log("fold_worker exception  ~p:~p ~p~n", [Class, Ex, Stacktrace]),
+                        error_logger:error_msg("Unexpected: ~p:~p ~p~n", [Class, Ex, Stacktrace]),
+                        exit({bad, Class, Ex, Stacktrace})
                 end
         end,
     PID = plain_fsm:spawn(?MODULE, F),
@@ -231,5 +231,3 @@ data_vsn() ->
 
 code_change(_OldVsn, _State, _Extra) ->
     {ok, {#state{}, data_vsn()}}.
-
-

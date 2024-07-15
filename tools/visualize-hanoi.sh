@@ -48,9 +48,9 @@ function periodic() {
 }
 
 merge_diff() {
-    SA=`ls -l A-${ID}.data 2> /dev/null | awk '{print $5}'`
-    SB=`ls -l B-${ID}.data 2> /dev/null | awk '{print $5}'`
-    SX=`ls -l X-${ID}.data 2> /dev/null | awk '{print $5}'`
+    SA=`/bin/ls -l A-${ID}.data 2> /dev/null | awk '{print $5}'`
+    SB=`/bin/ls -l B-${ID}.data 2> /dev/null | awk '{print $5}'`
+    SX=`/bin/ls -l X-${ID}.data 2> /dev/null | awk '{print $5}'`
     if [ \( -n "$SA" \) -a \( -n "$SB" \)  -a \( -n "$SX" \) ]; then
       export RES=`expr ${SX}0 / \( $SA + $SB \)`
     else
@@ -64,7 +64,7 @@ function dynamic() {
     start=`date +%s`
     while true ; do
         s=""
-        for ((i=8; i<22; i++)) ; do
+        for ((i=10; i<22; i++)) ; do
             if [ -f "C-$i.data" ] ; then
                 s="${s}C"
             else

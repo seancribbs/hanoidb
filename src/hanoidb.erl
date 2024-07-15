@@ -210,9 +210,9 @@ receive_fold_range(MRef,PID,Fun,Acc0, Limit) ->
                 try
                     {ok, Fun(K,V,Acc0)}
                 catch
-                    Class:Exception ->
+                    Class:Exception:Stacktrace ->
                         % TODO ?log("Exception in hanoidb fold: ~p ~p", [Exception, erlang:get_stacktrace()]),
-                        {'EXIT', Class, Exception, erlang:get_stacktrace()}
+                        {'EXIT', Class, Exception, Stacktrace}
                 end
             of
                 {ok, Acc1} ->

@@ -54,11 +54,11 @@ start(A,B,X, Size, IsLastLevel, Options) ->
 
             Owner ! ?CAST(self(),{merge_done, OutCount, X})
         catch
-            C:E ->
+            C:E:Stacktrace ->
                 %% this semi-bogus code makes sure we always get a stack trace if merging fails
                 error_logger:error_msg("~p: merge failed ~p:~p ~p -> ~s~n",
-                    [self(), C,E,erlang:get_stacktrace(), X]),
-                erlang:raise(C,E,erlang:get_stacktrace())
+                    [self(), C,E,Stacktrace, X]),
+                erlang:raise(C,E,Stacktrace)
         end
     end).
 

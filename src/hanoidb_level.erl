@@ -159,9 +159,9 @@ initialize(State) ->
         _Result = initialize2(State),
         ?log(" ** terminated ~p", [_Result])
     catch
-        Class:Ex when not (Class == exit andalso Ex == normal) ->
-            ?log("crashing ~p:~p ~p~n", [Class,Ex,erlang:get_stacktrace()]),
-            error_logger:error_msg("crash: ~p:~p ~p~n", [Class,Ex,erlang:get_stacktrace()])
+        Class:Ex:Stacktrace when not (Class == exit andalso Ex == normal) ->
+            ?log("crashing ~p:~p ~p~n", [Class,Ex,Stacktrace]),
+            error_logger:error_msg("crash: ~p:~p ~p~n", [Class,Ex,Stacktrace])
     end.
 
 initialize2(State) ->

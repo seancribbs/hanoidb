@@ -231,7 +231,7 @@ as_array(BM) ->
     end.
 
 %%%========== Bitarray representation - suitable for sparse arrays ==========
-bitarray_new(N) -> array:new((N-1) div ?W + 1, {default, 0}).
+%% bitarray_new(N) -> array:new((N-1) div ?W + 1, {default, 0}).
 
 -ifdef(pre18).
 -spec bitarray_set( non_neg_integer(), array() ) -> array().

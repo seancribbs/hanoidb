@@ -24,7 +24,7 @@
 
 {application, hanoidb,
  [
-  {description, ""},
+  {description, "LSM-tree tiered storage engine with amortized merging"},
   {vsn, "1.3.0"},
   {registered, []},
   {applications, [
